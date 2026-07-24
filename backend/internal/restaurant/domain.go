@@ -12,7 +12,7 @@ type Restaurant struct {
 	Email       string    `json:"email"`
 	Logo        string    `json:"logo"`
 	IsActive    bool      `json:"is_active"`
-	OwnerID     int       `json:"owner_id"`
+//	OwnerID     int       `json:"owner_id"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }

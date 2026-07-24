@@ -11,7 +11,7 @@ type DeliveryPerson struct {
 	VehicleType   string    `json:"vehicle_type"`
 	VehicleNumber string    `json:"vehicle_number"`
 	IsAvailable   bool      `json:"is_available"`
-	IsActive      bool      `json:"is_active"`
+	//IsActive      bool      `json:"is_active"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 }

@@ -11,7 +11,7 @@ type RestaurantResponse struct {
 	Email       string    `json:"email"`
 	Logo        string    `json:"logo"`
 	IsActive    bool      `json:"is_active"`
-	OwnerID     int       `json:"owner_id"`
+	//OwnerID     int       `json:"owner_id"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -31,7 +31,7 @@ func ToRestaurantResponse(r *Restaurant) RestaurantResponse {
 		Email:       r.Email,
 		Logo:        r.Logo,
 		IsActive:    r.IsActive,
-		OwnerID:     r.OwnerID,
+		//OwnerID:     r.OwnerID,
 		CreatedAt:   r.CreatedAt,
 		UpdatedAt:   r.UpdatedAt,
 	}

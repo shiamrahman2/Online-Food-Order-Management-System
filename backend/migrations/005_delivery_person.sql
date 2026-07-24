@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS d_person (
     vehicle_type VARCHAR(50),
     vehicle_number VARCHAR(50),
     is_available BOOLEAN DEFAULT true,
-    is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -24,13 +24,13 @@ func NewRepository() Repository {
 
 func (r *repository) Create(ctx context.Context, res *Restaurant) (*Restaurant, error) {
 	query := `
-		INSERT INTO restaurant (name, password, description, address, phone, email, logo, is_active, owner_id)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+		INSERT INTO restaurant (name, password, description, address, phone, email, logo, is_active)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 		RETURNING id, created_at, updated_at
 	`
 	err := database.DB.QueryRow(ctx, query,
 		res.Name, res.Password, res.Description, res.Address,
-		res.Phone, res.Email, res.Logo, res.IsActive, res.OwnerID,
+		res.Phone, res.Email, res.Logo, res.IsActive,
 	).Scan(&res.ID, &res.CreatedAt, &res.UpdatedAt)
 
 	if err != nil {
@@ -42,7 +42,7 @@ func (r *repository) Create(ctx context.Context, res *Restaurant) (*Restaurant, 
 
 func (r *repository) FindByID(ctx context.Context, id int) (*Restaurant, error) {
 	query := `
-		SELECT id, name, password, description, address, phone, email, logo, is_active, owner_id, created_at, updated_at
+		SELECT id, name, password, description, address, phone, email, logo, is_active, created_at, updated_at
 		FROM restaurant
 		WHERE id = $1
 	`
@@ -50,7 +50,7 @@ func (r *repository) FindByID(ctx context.Context, id int) (*Restaurant, error) 
 	err := database.DB.QueryRow(ctx, query, id).Scan(
 		&res.ID, &res.Name, &res.Password, &res.Description,
 		&res.Address, &res.Phone, &res.Email, &res.Logo,
-		&res.IsActive, &res.OwnerID, &res.CreatedAt, &res.UpdatedAt,
+		&res.IsActive, &res.CreatedAt, &res.UpdatedAt,
 	)
 
 	if err != nil {
@@ -62,7 +62,7 @@ func (r *repository) FindByID(ctx context.Context, id int) (*Restaurant, error) 
 
 func (r *repository) FindByEmail(ctx context.Context, email string) (*Restaurant, error) {
 	query := `
-		SELECT id, name, password, description, address, phone, email, logo, is_active, owner_id, created_at, updated_at
+		SELECT id, name, password, description, address, phone, email, logo, is_active, created_at, updated_at
 		FROM restaurant
 		WHERE email = $1
 	`
@@ -70,7 +70,7 @@ func (r *repository) FindByEmail(ctx context.Context, email string) (*Restaurant
 	err := database.DB.QueryRow(ctx, query, email).Scan(
 		&res.ID, &res.Name, &res.Password, &res.Description,
 		&res.Address, &res.Phone, &res.Email, &res.Logo,
-		&res.IsActive, &res.OwnerID, &res.CreatedAt, &res.UpdatedAt,
+		&res.IsActive, &res.CreatedAt, &res.UpdatedAt,
 	)
 
 	if err != nil {
@@ -142,7 +142,7 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 
 func (r *repository) FindAll(ctx context.Context) ([]Restaurant, error) {
 	query := `
-		SELECT id, name, password, description, address, phone, email, logo, is_active, owner_id, created_at, updated_at
+		SELECT id, name, password, description, address, phone, email, logo, is_active, created_at, updated_at
 		FROM restaurant
 		ORDER BY id DESC
 	`
@@ -158,7 +158,7 @@ func (r *repository) FindAll(ctx context.Context) ([]Restaurant, error) {
 		err := rows.Scan(
 			&res.ID, &res.Name, &res.Password, &res.Description,
 			&res.Address, &res.Phone, &res.Email, &res.Logo,
-			&res.IsActive, &res.OwnerID, &res.CreatedAt, &res.UpdatedAt,
+			&res.IsActive, &res.CreatedAt, &res.UpdatedAt,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan restaurant: %w", err)

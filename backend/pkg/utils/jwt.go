@@ -12,7 +12,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(userID int, role, secret string, expirationHours int) (string, error) {
+func GenerateToken(userID int,role, secret string, expirationHours int) (string, error) {
 	claims := Claims{
 		UserID: userID,
 		Role:   role,

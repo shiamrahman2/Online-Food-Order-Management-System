@@ -44,7 +44,7 @@ func (h *Handler) GetRestaurantByID(w http.ResponseWriter, r *http.Request) {
 	response.Success(w, "Restaurant retrieved successfully", restaurant)
 }
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
-	userID := middleware.GetUserID(r)
+	//userID := middleware.GetUserID(r)
 
 	var req CreateRestaurantRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -52,7 +52,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	restaurant, err := h.service.Create(r.Context(), &req, userID)
+	restaurant, err := h.service.Create(r.Context(), &req)//, userID
 	if err != nil {
 		response.BadRequest(w, err.Error())
 		return

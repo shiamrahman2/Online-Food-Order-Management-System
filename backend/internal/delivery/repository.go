@@ -25,13 +25,13 @@ func NewRepository() Repository {
 
 func (r *repository) Create(ctx context.Context, d *DeliveryPerson) (*DeliveryPerson, error) {
 	query := `
-		INSERT INTO d_person (name, email, phone, password, vehicle_type, vehicle_number, is_available, is_active)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		INSERT INTO d_person (name, email, phone, password, vehicle_type, vehicle_number, is_available)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 		RETURNING id, created_at, updated_at
 	`
 	err := database.DB.QueryRow(ctx, query,
 		d.Name, d.Email, d.Phone, d.Password,
-		d.VehicleType, d.VehicleNumber, d.IsAvailable, d.IsActive,
+		d.VehicleType, d.VehicleNumber, d.IsAvailable,
 	).Scan(&d.ID, &d.CreatedAt, &d.UpdatedAt)
 
 	if err != nil {
@@ -43,14 +43,14 @@ func (r *repository) Create(ctx context.Context, d *DeliveryPerson) (*DeliveryPe
 
 func (r *repository) FindByID(ctx context.Context, id int) (*DeliveryPerson, error) {
 	query := `
-		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, is_active, created_at, updated_at
+		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, created_at, updated_at
 		FROM d_person
 		WHERE id = $1
 	`
 	d := &DeliveryPerson{}
 	err := database.DB.QueryRow(ctx, query, id).Scan(
 		&d.ID, &d.Name, &d.Email, &d.Phone, &d.Password,
-		&d.VehicleType, &d.VehicleNumber, &d.IsAvailable, &d.IsActive,
+		&d.VehicleType, &d.VehicleNumber, &d.IsAvailable,
 		&d.CreatedAt, &d.UpdatedAt,
 	)
 
@@ -63,14 +63,14 @@ func (r *repository) FindByID(ctx context.Context, id int) (*DeliveryPerson, err
 
 func (r *repository) FindByEmail(ctx context.Context, email string) (*DeliveryPerson, error) {
 	query := `
-		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, is_active, created_at, updated_at
+		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, created_at, updated_at
 		FROM d_person
 		WHERE email = $1
 	`
 	d := &DeliveryPerson{}
 	err := database.DB.QueryRow(ctx, query, email).Scan(
 		&d.ID, &d.Name, &d.Email, &d.Phone, &d.Password,
-		&d.VehicleType, &d.VehicleNumber, &d.IsAvailable, &d.IsActive,
+		&d.VehicleType, &d.VehicleNumber, &d.IsAvailable,
 		&d.CreatedAt, &d.UpdatedAt,
 	)
 
@@ -126,7 +126,7 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 
 func (r *repository) FindAll(ctx context.Context) ([]DeliveryPerson, error) {
 	query := `
-		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, is_active, created_at, updated_at
+		SELECT id, name, email, phone, password, vehicle_type, vehicle_number, is_available, created_at, updated_at
 		FROM d_person
 		ORDER BY id DESC
 	`
@@ -141,7 +141,7 @@ func (r *repository) FindAll(ctx context.Context) ([]DeliveryPerson, error) {
 		var d DeliveryPerson
 		err := rows.Scan(
 			&d.ID, &d.Name, &d.Email, &d.Phone, &d.Password,
-			&d.VehicleType, &d.VehicleNumber, &d.IsAvailable, &d.IsActive,
+			&d.VehicleType, &d.VehicleNumber, &d.IsAvailable,
 			&d.CreatedAt, &d.UpdatedAt,
 		)
 		if err != nil {

@@ -8,7 +8,7 @@ import (
 )
 
 type Service interface {
-	Create(ctx context.Context, req *CreateRestaurantRequest, ownerID int) (*RestaurantResponse, error)
+	Create(ctx context.Context, req *CreateRestaurantRequest) (*RestaurantResponse, error)
 	Login(ctx context.Context, req *LoginRequest, jwtSecret string, jwtExp int) (*LoginResponse, error)
 	GetProfile(ctx context.Context, id int) (*RestaurantResponse, error)
 	UpdateProfile(ctx context.Context, id int, req *UpdateRestaurantRequest) (*RestaurantResponse, error)
@@ -25,7 +25,7 @@ func NewService(repo Repository) Service {
 	return &service{repo: repo}
 }
 
-func (s *service) Create(ctx context.Context, req *CreateRestaurantRequest, ownerID int) (*RestaurantResponse, error) {
+func (s *service) Create(ctx context.Context, req *CreateRestaurantRequest) (*RestaurantResponse, error) {//, ownerID int
 	if !utils.ValidateEmail(req.Email) {
 		return nil, fmt.Errorf("invalid email format")
 	}
@@ -55,7 +55,7 @@ func (s *service) Create(ctx context.Context, req *CreateRestaurantRequest, owne
 		Email:       req.Email,
 		Logo:        req.Logo,
 		IsActive:    true,
-		OwnerID:     ownerID,
+		//OwnerID:     ownerID,
 	}
 
 	createdRestaurant, err := s.repo.Create(ctx, restaurant)

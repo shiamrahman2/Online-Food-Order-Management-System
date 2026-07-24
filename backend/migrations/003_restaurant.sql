@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS restaurant (
     email VARCHAR(100) UNIQUE NOT NULL,
     logo VARCHAR(255),
     is_active BOOLEAN DEFAULT true,
-    owner_id INTEGER REFERENCES admin(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -55,7 +55,7 @@ func (s *service) Create(ctx context.Context, req *CreateDeliveryPersonRequest) 
 		VehicleType:   req.VehicleType,
 		VehicleNumber: req.VehicleNumber,
 		IsAvailable:   true,
-		IsActive:      true,
+		//IsActive:      true,
 	}
 
 	createdPerson, err := s.repo.Create(ctx, person)
@@ -81,9 +81,9 @@ func (s *service) Login(ctx context.Context, req *LoginRequest, jwtSecret string
 		return nil, fmt.Errorf("invalid credentials")
 	}
 
-	if !person.IsActive {
-		return nil, fmt.Errorf("account is deactivated")
-	}
+	// if !person.IsActive {
+	// 	return nil, fmt.Errorf("account is deactivated")
+	// }
 
 	token, err := utils.GenerateToken(person.ID, "delivery", jwtSecret, jwtExp)
 	if err != nil {

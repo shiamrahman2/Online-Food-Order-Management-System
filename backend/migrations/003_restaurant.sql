@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS restaurant (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    description TEXT,
+    address TEXT NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    logo VARCHAR(255),
+    is_active BOOLEAN DEFAULT true,
+    owner_id INTEGER REFERENCES admin(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

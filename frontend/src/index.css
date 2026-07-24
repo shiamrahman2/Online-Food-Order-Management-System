@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #1D1420;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: 'Fraunces', serif;
+}
+
+/* Signature element: perforated "order ticket" card edge, used across
+   food/restaurant/order cards to evoke a food-stall receipt stub. */
+.ticket-card {
+  position: relative;
+  border-radius: 18px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.ticket-card::before,
+.ticket-card::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #FFF8F0;
+  border-radius: 999px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.ticket-card::before {
+  left: -8px;
+}
+
+.ticket-card::after {
+  right: -8px;
+}
+
+.price-tag {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: #FF8A00;
+  color: #fff;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #E4572E;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

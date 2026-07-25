@@ -7,6 +7,7 @@ const menuService = {
   createMenu: (payload) => api.post('/restaurant/menu', payload),
   updateMenu: (id, payload) => api.put(`/restaurant/menu/${id}`, payload),
   deleteMenu: (id) => api.delete(`/restaurant/menu/${id}`),
+  getByID: (id) =>api.get(`/menu/${id}`),
 }
 
 export default menuService
